@@ -25,6 +25,10 @@ Missing Tests:
 
 base_dir = os.path.dirname(os.path.realpath(__file__))
 logger = logging.getLogger("pykeepass")
+<<<<<<< 0abb04d558a12898239b8c6d16263270f036b4e7
+=======
+# logger.setLevel(logging.DEBUG)
+>>>>>>> AND results instead of OR, add test
 
 
 class EntryFunctionTests(unittest.TestCase):

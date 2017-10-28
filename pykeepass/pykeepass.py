@@ -102,7 +102,6 @@ class PyKeePass(object):
     def _find(self, keys_xp, regex=False, flags=None, tree=None,
               history=False, first=False, **kwargs):
 
-        print('regex:', regex)
         regex_string = '[re:test(text(), "{}", "{}")]'
         match_string = '[text()="{}"]'
 
@@ -169,11 +168,11 @@ class PyKeePass(object):
     def find_groups_by_path(self, group_path_str=None, regex=False, flags=None,
                             tree=None, first=False):
 
-        return self.find_groups(path=group_path_str,
-                                   regex=regex,
-                                   flags=flags,
-                                   tree=tree,
-                                   first=first
+        return self.find_groups(name=group_name,
+                                regex=regex,
+                                flags=flags,
+                                tree=tree,
+                                first=first
         )
 
 
@@ -238,12 +237,6 @@ class PyKeePass(object):
         # return first object in list or None
         if first:
             res = res[0] if res else None
-
-
-        ## FIXME we should figure out how to filter history entries using xpath
-        ##       then move this to the _find() function
-        # if history is False:
-        #     res = [item for item in res if not item.is_a_history_entry]
 
         return res
 
