@@ -102,6 +102,7 @@ class PyKeePass(object):
     def _find(self, keys_xp, regex=False, flags=None, tree=None,
               history=False, first=False, **kwargs):
 
+        print('regex:', regex)
         regex_string = '[re:test(text(), "{}", "{}")]'
         match_string = '[text()="{}"]'
 
@@ -237,6 +238,12 @@ class PyKeePass(object):
         # return first object in list or None
         if first:
             res = res[0] if res else None
+
+
+        ## FIXME we should figure out how to filter history entries using xpath
+        ##       then move this to the _find() function
+        # if history is False:
+        #     res = [item for item in res if not item.is_a_history_entry]
 
         return res
 
