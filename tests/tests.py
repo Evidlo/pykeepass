@@ -168,6 +168,12 @@ class GroupFunctionTests(unittest.TestCase):
         results = self.kp.find_groups_by_path('/foobar_group/subgroup/', first=True)
         self.assertEqual(results.name, 'subgroup')
 
+    def test_find_groups_by_uuid(self):
+        results = self.kp.find_groups_by_uuid('lRVaMlMXoQ/U5NDCAwJktg==', first=True)
+        self.assertIsInstance(results, Group)
+        results = self.kp.find_groups(uuid='^lRVaMlMX|^kwTZdSoU', regex=True)
+        self.assertEqual(len(results), 2)
+
     def test_find_groups(self):
         results = self.kp.find_groups(path='/foobar_group/subgroup/')
         self.assertIsInstance(results[0], Group)
