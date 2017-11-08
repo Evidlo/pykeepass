@@ -43,23 +43,14 @@ Simple Example
 Finding Entries
 ----------------------
 
-**find_entries_by_title** (title, regex=False, flags=None, tree=None, history=False, first=False)
+**find_entries** (title=None, username=None, password=None, url=None, notes=None, path=None, uuid=None, regex=False, flags=None, tree=None, history=False, first=False)
 
-**find_entries_by_username** (username, regex=False, flags=None, tree=None, history=False, first=False)
-
-**find_entries_by_password** (password, regex=False, flags=None, tree=None, history=False, first=False)
-
-**find_entries_by_url** (url, regex=False, flags=None, tree=None, history=False, first=False)
-
-**find_entries_by_notes** (notes, regex=False, flags=None, tree=None, history=False, first=False)
-
-**find_entries_by_path** (path, regex=False, flags=None, tree=None, history=False, first=False)
-
-where ``title``, ``username``, ``password``, ``url``, ``notes`` and ``path`` are strings.  These functions have optional ``regex`` boolean and ``flags`` string arguments, which means to interpret the string as an `XSLT style`_ regular expression with `flags`_.
-
+Returns entries which match all provided parameters, where ``title``, ``username``, ``password``, ``url``, ``notes``, ``path`` and ``uuid`` are strings.  These functions have optional ``regex`` boolean and ``flags`` string arguments, which means to interpret the string as an `XSLT style`_ regular expression with `flags`_.
 
 .. _XSLT style: https://www.xml.com/pub/a/2003/06/04/tr.html
 .. _flags: https://www.w3.org/TR/xpath-functions/#flags 
+
+The ``path`` string can be a direct path to an entry, or (when ending in ``/``) the path to the group to recursively search under.
 
 The ``history`` (default ``False``) boolean controls whether history entries should be included in the search results.
 
@@ -67,10 +58,6 @@ The ``first`` (default ``False``) boolean controls whether to return the first m
 
 * if ``first=False``, the function returns a list of ``Entry`` s or ``[]`` if there are no matches
 * if ``first=True``, the function returns the first ``Entry`` match, or ``None`` if there are no matches
-
-**find_entry_by_uuid** (uuid, tree=None, history=False)
-
-This returns one entry except if ``history`` is set.
 
 **entries**
 
@@ -94,17 +81,33 @@ a flattened list of all entries in the database
    >>> kp.find_groups_by_name('social', first=True).entries
    [Entry: "social/gmail (myusername)", Entry: "social/facebook (myusername)"]
 
+For backwards compatibility, the following function are also available:
+
+**find_entries_by_title** (title, regex=False, flags=None, tree=None, history=False, first=False)
+
+**find_entries_by_username** (username, regex=False, flags=None, tree=None, history=False, first=False)
+
+**find_entries_by_password** (password, regex=False, flags=None, tree=None, history=False, first=False)
+
+**find_entries_by_url** (url, regex=False, flags=None, tree=None, history=False, first=False)
+
+**find_entries_by_notes** (notes, regex=False, flags=None, tree=None, history=False, first=False)
+
+**find_entries_by_path** (path, regex=False, flags=None, tree=None, history=False, first=False)
+
+**find_entries_by_uuid** (uuid, regex=False, flags=None, tree=None, history=False, first=False)
+
 Finding Groups
 ----------------------
 
-**find_groups_by_name** (name, tree=None, regex=False, flags=None, first=False)
+**find_groups** (name=None, path=None, uuid=None, tree=None, regex=False, flags=None, first=False)
 
-**find_groups_by_path** (path, tree=None, regex=False, flags=None, first=False)
-
-where ``name`` and ``path`` are strings.  These functions have optional ``regex`` boolean and ``flags`` string arguments, which means to interpret the string as an `XSLT style`_ regular expression with `flags`_.
+where ``name``, ``path`` and ``uuid`` are strings.  These functions have optional ``regex`` boolean and ``flags`` string arguments, which means to interpret the string as an `XSLT style`_ regular expression with `flags`_.
 
 .. _XSLT style: https://www.xml.com/pub/a/2003/06/04/tr.html
 .. _flags: https://www.w3.org/TR/xpath-functions/#flags 
+
+The ``path`` string must end in ``/``.
 
 The ``first`` (default ``False``) boolean controls whether to return the first matched item, or a list of matched items.
 
@@ -138,6 +141,14 @@ a flattened list of all groups in the database
 
    >>> kp.root_group
    Group: "/"
+
+For backwards compatibility, the following functions are also available:
+
+**find_groups_by_name** (name, tree=None, regex=False, flags=None, first=False)
+
+**find_groups_by_path** (path, tree=None, regex=False, flags=None, first=False)
+
+**find_groups_by_uuid** (uuid, tree=None, regex=False, flags=None, first=False)
 
 
 Adding Entries
