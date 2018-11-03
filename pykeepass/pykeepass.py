@@ -13,6 +13,9 @@ from io import BytesIO
 from pykeepass.kdbx_parsing.kdbx import KDBX
 from pykeepass.kdbx_parsing.kdbx4 import kdf_uuids
 from lxml import etree
+import threading
+
+lock = threading.Lock()
 
 from pykeepass.entry import Entry
 from pykeepass.group import Group
@@ -50,14 +53,15 @@ class PyKeePass(object):
         if not filename:
             filename = self.filename
 
-        with open(filename, 'wb') as f:
-            f.write(
-                KDBX.build(
-                    self.kdbx,
-                    password=self.password,
-                    keyfile=self.keyfile
+        with lock:
+            with open(filename, 'wb') as f:
+                f.write(
+                    KDBX.build(
+                        self.kdbx,
+                        password=self.password,
+                        keyfile=self.keyfile
+                    )
                 )
-            )
 
     @property
     def version(self):
